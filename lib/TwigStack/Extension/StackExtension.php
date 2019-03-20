@@ -28,6 +28,22 @@ class StackExtension extends \Twig_Extension
      */
     private $stacks = array();
 
+
+    public function isEmpty($stackName)
+    {
+        return empty($this->stacks[$stackName]);
+    }
+
+    public function isExists($stackName)
+    {
+        return isset($this->stacks[$stackName]);
+    }
+
+    public function clean($stackName)
+    {
+        $this->stacks[$stackName] = new Stack();
+    }
+
     /**
      * Push the given content to the stack identified by its name
      * If the stack does not exist, create it

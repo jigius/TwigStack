@@ -14,14 +14,14 @@ namespace TwigStack\Node;
  * Class StackBodyNode
  * @package TwigStack\Node
  */
-class StackBodyNode extends \Twig_Node
+class StackBodyNode extends \Twig\Node\Node
 {
     /**
      * Consturct the stack body with the original body
      *
      * @param \Twig_Node $body
      */
-    public function __construct(\Twig_Node $body)
+    public function __construct(\Twig\Node\Node $body)
     {
         parent::__construct(array('body' => $body));
     }
@@ -31,7 +31,7 @@ class StackBodyNode extends \Twig_Node
      *
      * @param \Twig_Compiler A Twig_Compiler instance
      */
-    public function compile(\Twig_Compiler $compiler)
+    public function compile(\Twig\Compiler $compiler)
     {
         $compiler
             ->write("ob_start();\n")
@@ -48,4 +48,4 @@ class StackBodyNode extends \Twig_Node
             ->write("echo \$this->env->getExtension('stack')->render(ob_get_clean());\n\n")
         ;
     }
-} 
+}
