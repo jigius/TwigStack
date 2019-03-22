@@ -11,6 +11,7 @@
 namespace TwigStack\TokenParser;
 
 use TwigStack\Node\StackPopNode;
+use Twig;
 
 /**
  * Class StackPopTokenParser
@@ -25,7 +26,7 @@ class StackPopTokenParser extends \Twig_TokenParser
      * @return \Twig_NodeInterface A Twig_NodeInterface instance
      * @throws \Twig_Error_Syntax
      */
-    public function parse(\Twig_Token $token)
+    public function parse(Twig\Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();

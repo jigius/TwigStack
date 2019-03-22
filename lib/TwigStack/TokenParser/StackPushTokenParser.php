@@ -11,6 +11,7 @@
 namespace TwigStack\TokenParser;
 
 use TwigStack\Node\StackPushNode;
+use Twig;
 
 /**
  * Class StackPushTokenParser
@@ -25,7 +26,7 @@ class StackPushTokenParser extends \Twig_TokenParser
      * @return \Twig_NodeInterface A Twig_NodeInterface instance
      * @throws \Twig_Error_Syntax
      */
-    public function parse(\Twig_Token $token)
+    public function parse(Twig\Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
@@ -56,7 +57,7 @@ class StackPushTokenParser extends \Twig_TokenParser
      * @param \Twig_Token $token
      * @return bool
      */
-    public function decideBlockEnd(\Twig_Token $token)
+    public function decideBlockEnd(Twig\Token $token)
     {
         return $token->test('endstackpush');
     }
