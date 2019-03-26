@@ -45,7 +45,7 @@ class StackBodyNode extends \Twig\Node\Node
             ->write("throw \$e;\n")
             ->outdent()
             ->write("}\n\n")
-            ->write("echo \$this->env->getExtension('stack')->render(ob_get_clean());\n\n")
+            ->write("echo \$this->env->getExtension(Twig_StackExtension::class)->render(ob_get_clean());\n\n")
         ;
     }
 }

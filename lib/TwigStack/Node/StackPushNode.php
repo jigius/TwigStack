@@ -49,7 +49,7 @@ class StackPushNode extends \Twig_Node
             ->outdent()
             ->write("}\n\n")
             ->write("\$result = ob_get_clean();\n")
-            ->write(sprintf("\$this->env->getExtension('stack')->pushStack('%s', \$result);\n\n", $this->getAttribute('name')));
+            ->write(sprintf("\$this->env->getExtension(Twig_StackExtension::class)->pushStack('%s', \$result);\n\n", $this->getAttribute('name')));
         ;
     }
-} 
+}

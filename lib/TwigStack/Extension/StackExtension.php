@@ -117,8 +117,10 @@ class StackExtension extends \Twig_Extension
      *
      * @return string The extension name
      */
-    public function getName()
+    /*public function getName()
     {
         return 'stack';
-    }
+    }*/
 }
+
+class_alias('TwigStack\Extension\StackExtension', 'Twig_StackExtension');
