@@ -23,25 +23,11 @@ use TwigStack\TokenParser\StackPushTokenParser;
  */
 class StackExtension extends \Twig_Extension
 {
-    /**
-     * @var array|Stack[]
-     */
-    private $stacks = array();
+    private $stacks;
 
-
-    public function isEmpty($stackName)
+    public function __construct(StacksInterface $stacks)
     {
-        return empty($this->stacks[$stackName]);
-    }
-
-    public function isExists($stackName)
-    {
-        return isset($this->stacks[$stackName]);
-    }
-
-    public function clean($stackName)
-    {
-        $this->stacks[$stackName] = new Stack();
+        $this->stacks = $stacks;
     }
 
     /**
@@ -53,10 +39,7 @@ class StackExtension extends \Twig_Extension
      */
     public function pushStack($stackName, $content)
     {
-        if (!array_key_exists($stackName, $this->stacks)) {
-            $this->stacks[$stackName] = new Stack();
-        }
-        $this->stacks[$stackName]->push($content);
+        $this->stacks->pull($stackName)->push($content);
     }
 
     /**
@@ -67,23 +50,12 @@ class StackExtension extends \Twig_Extension
      */
     public function render($output)
     {
-        $stacks = $this->stacks;
         // try to find the following string in the output
         // stack_pop_[stashName]([seperator])
         $regex = '/stack\_pop\_([\w]*)\(([^\)]*)\)/';
-        $callback = function($matches) use ($stacks) {
-            // if the requested stack does not exists, replace it with an empty string
-            if (!array_key_exists($matches[1], $stacks)) {
-                return '';
-            }
-
-            // set the separator for the stack
-            $stacks[$matches[1]]->setSeparator($matches[2]);
-
-            // cast the stack to string
-            return (string)$stacks[$matches[1]];
+        $callback = function ($matches) {
+            return $this->stacks->pull($stackName)->output($matches[2]);
         };
-
         return preg_replace_callback($regex, $callback, $output);
     }
 
