@@ -11,9 +11,9 @@
 namespace TwigStack\Extension;
 
 use TwigStack\NodeVisitor\StackNodeVisitor;
-use TwigStack\Stack;
 use TwigStack\TokenParser\StackPopTokenParser;
 use TwigStack\TokenParser\StackPushTokenParser;
+use Core\Stack\CollectionInterface as StacksInterface;
 
 /**
  * The Twig extension, which should be added to the Twig environment to enable TwigStack
