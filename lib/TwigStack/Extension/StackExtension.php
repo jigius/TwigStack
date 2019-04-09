@@ -54,7 +54,7 @@ class StackExtension extends \Twig_Extension
         // stack_pop_[stashName]([seperator])
         $regex = '/stack\_pop\_([\w]*)\(([^\)]*)\)/';
         $callback = function ($matches) {
-            return $this->stacks->pull($stackName)->output($matches[2]);
+            return $this->stacks->pull($matches[1])->output($matches[2]);
         };
         return preg_replace_callback($regex, $callback, $output);
     }
